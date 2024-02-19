@@ -30,7 +30,12 @@ class UserController extends Controller
                 'name' => $payload['name'],
                 'email' => $payload['email'],
                 'password' => bcrypt('password'),
+                'last_login' => now()
             ]);
+
+            // Modificar a user last_login
+            $user->last_login = now();
+            $user->save();
             // y generar un token JWT para ese usuario.
             $token = JWTAuth::fromUser($user);
 
